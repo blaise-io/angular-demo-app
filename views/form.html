@@ -1,0 +1,49 @@
+<form name="taskForm"
+      novalidate
+      ng-if="persons.$resolved"
+      ng-submit="save(taskForm)">
+
+    <p>
+        <label>
+            Title: <br>
+            <input required
+                   type="text"
+                   name="title"
+                   ng-model="task.title">
+        </label>
+        <span ng-messages="taskForm.title.$error">
+            <span ng-message="required">This field is required</span>
+        </span>
+    </p>
+
+    <p>
+        <label>
+            Description: <br>
+            <textarea required
+                      name="description"
+                      ng-model="task.description"></textarea>
+        </label>
+        <span ng-messages="taskForm.description.$error">
+            <span ng-message="required">This field is required</span>
+        </span>
+    </p>
+
+    <p>
+        <label>
+            Assignee: <br>
+            <select required
+                    name="assignee"
+                    ng-model="task.assignee"
+                    ng-options="person.id as person.name for person in persons"> </select>
+        </label>
+        <span ng-messages="taskForm.assignee.$error">
+            <span ng-message="required">This field is required</span>
+        </span>
+    </p>
+
+    <p>
+        <a ng-href="/">Cancel</a>
+        <button type="submit">Submit</button>
+    </p>
+
+</form>

@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- 1: Define the area where our app is active: -->
+<html ng-app="bugtracker">
+<head>
+    <meta charset="utf-8" />
+    <title>Angular demo</title>
+    <link rel="icon" href="/favicon.png" />
+    <link rel="stylesheet" href="/index.css" />
+
+    <!-- 2: Define our app base: -->
+    <base href="/" />
+</head>
+<body>
+
+    <ng-view></ng-view>
+
+    <!-- 3: Include AngularJS library code: -->
+    <script src="https://code.angularjs.org/1.4.4/angular.js"></script>
+    <script src="https://code.angularjs.org/1.4.4/angular-messages.js"></script>
+    <script src="https://code.angularjs.org/1.4.4/angular-route.js"></script>
+    <script src="https://code.angularjs.org/1.4.4/angular-resource.js"></script>
+
+    <!-- 4: Include app code: -->
+    <script src="/js/module.js"></script>
+    <script src="/js/routes.js"></script>
+    <script src="/js/controllers.js"></script>
+    <script src="/js/factories.js"></script>
+    <script src="/js/resources.js"></script>
+
+</body>
+</html>

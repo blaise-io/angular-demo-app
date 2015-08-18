@@ -1,0 +1,54 @@
+* {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+body, input, textarea, button, select {
+    font: 14px/24px sans-serif;
+}
+
+body {
+    background: #eee;
+}
+
+button, input, select, textarea {
+    width: 200px;
+    background: #fff;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 4px 10px;
+}
+
+button {
+    background: royalblue;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 3px;
+    color: white;
+    margin: 0 10px;
+    padding: 4px 20px;
+    width: auto;
+}
+
+a {
+    text-decoration: none;
+    color: royalblue;
+}
+
+label {
+    display: block;
+}
+
+[ng-messages], [ng-href^="/delete"] {
+    color: red;
+}
+
+li {
+    width: 20em;
+    margin: 10px 0;
+}
+
+li a {
+    float: right;
+    margin-left: 10px;
+}
