@@ -16,6 +16,7 @@ This is an example app that demos how to do:
 ## Running
 
  - Make sure Python 2.7 is installed on your system
- - `./server.py`
+ - Clone this repository to your local dev
+ - Run `./server.py`
  - Open `http://127.0.0.1:8000` in a browser
  
