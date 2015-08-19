@@ -5,7 +5,8 @@
         count="tasks.length"
         when="{'0': 'No tasks!', '1': '{} task', other: '{} tasks'}">
     </li>
-    <li ng-pluralize
+    <li ng-show="tasks.length"
+        ng-pluralize
         count="(tasks|totalStoryPoints)"
         when="{'0': 'No story points!', '1': '{} story point', other: '{} story points'}">
     </li>
@@ -14,6 +15,6 @@
     </li>
 </ul>
 
-<div ng-include="'/views/partials/table.html'"></div>
+<div ng-include="'/views/partials/table.html'">Loading…</div>
 
 <pre>$scope.tasks = {{tasks|json}}</pre>

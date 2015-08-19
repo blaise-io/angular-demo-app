@@ -1,16 +1,20 @@
 <!doctype html>
+<!-- (Modules) ng-app indicates in which section in our document the app is active -->
 <html ng-app="bugtracker">
 <head>
     <meta charset="utf-8" />
     <title>Angular demo</title>
     <link rel="icon" href="/favicon.png" />
     <link rel="stylesheet" href="/index.css" />
+    <!-- (Routing) Angular needs to know the base location for our app -->
     <base href="/" />
 </head>
 <body>
 
-    <ng-view></ng-view>
+    <!-- (Routing) ng-view will be populated with the templates specified in routes.js -->
+    <ng-view>Loading…</ng-view>
 
+    <!-- (Modules) Load AngularJS and Angular modules that our app uses -->
     <script src="https://code.angularjs.org/1.4.4/angular.js"></script>
     <script src="https://code.angularjs.org/1.4.4/angular-messages.js"></script>
     <script src="https://code.angularjs.org/1.4.4/angular-route.js"></script>
@@ -22,6 +26,7 @@
     <script src="/js/factories.js"></script>
     <script src="/js/resources.js"></script>
     <script src="/js/filters.js"></script>
+    <script src="/js/directives.js"></script>
 
 </body>
 </html>

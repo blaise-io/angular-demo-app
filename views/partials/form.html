@@ -18,15 +18,11 @@
     <p>
         <label>
             Description
-            <textarea required
-                      cols="40"
+            <textarea cols="40"
                       rows="3"
                       name="description"
                       ng-model="task.description"></textarea>
         </label>
-        <span ng-messages="taskForm.description.$error">
-            <span ng-message="required">This field is required</span>
-        </span>
     </p>
 
     <p>
@@ -36,6 +32,7 @@
                    type="number"
                    name="storypoints"
                    min="0"
+                   max="21"
                    pattern="^\d+$"
                    ng-model="task.storypoints">
         </label>
@@ -43,6 +40,7 @@
             <span ng-message="required">This field is required</span>
             <span ng-message="number">Please enter a number</span>
             <span ng-message="min">Please enter a positive number</span>
+            <span ng-message="max">Please enter a number below or equal to 21</span>
             <span ng-message="pattern">Please enter digits only</span>
         </span>
     </p>

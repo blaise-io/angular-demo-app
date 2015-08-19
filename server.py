@@ -12,7 +12,7 @@ Serves index.html when a file is not found.
 class MyHandler(SimpleHTTPRequestHandler):
 
     def send_error(self, code, message=None):
-        print code
+        # Serve index.html if static files does not exist:
         if code == 404:
             with open('index.html', 'r') as index_file:
                 self.send_response(200)

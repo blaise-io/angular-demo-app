@@ -44,7 +44,7 @@ bugtracker.factory('tasksProvider', ['$filter', '$resource', function($filter, $
     }
 
     function getAutoIncrement() {
-        var id = 0;
+        var id = 1;
         angular.forEach(tasks, function(task) {
             if (task.id >= id) {
                 id = task.id + 1;

@@ -1,3 +1,7 @@
+<div ng-hide="tasks.$resolved">
+    Loading…
+</div>
+
 <table ng-if="tasks.length">
 
     <tr>
@@ -8,13 +12,14 @@
         <th></th>
     </tr>
 
-    <tr ng-repeat="task in tasks"
-        ng-style="task.storypoints|taskSizeStyle">
+    <tr ng-repeat="task in tasks">
         <td>
-            <a ng-href="/update/{{::task.id}}">{{::task.id}}</a>
+            {{::task.id}}
         </td>
         <td>
-            <a ng-href="/update/{{::task.id}}">{{::task.title}}</a>
+            <a ng-href="/update/{{::task.id}}"
+               ng-style="task.storypoints|taskSizeStyle"
+               tooltip="{{::task.description}}">{{::task.title}}</a>
         </td>
         <td>
             <input required
@@ -22,6 +27,7 @@
                    type="number"
                    name="storypoints"
                    min="0"
+                   max="21"
                    pattern="^\d+$"
                    ng-model="task.storypoints"
                    ng-change="task.$save()">
@@ -30,7 +36,8 @@
             {{::task.assignee.name}}
         </td>
         <td>
-            <a ng-click="confirmDelete(task)">❌</a>
+            <a ng-click="confirmDelete(task)"
+               tooltip="Delete">❌</a>
         </td>
     </tr>
 
