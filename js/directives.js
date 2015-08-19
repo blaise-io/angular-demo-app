@@ -5,9 +5,17 @@ bugtracker.directive('tooltip', [function() {
         link: function(scope, element, attrs) {
             var tooltip = null;
 
-            /**
-             * @param {Event} event
-             */
+            element[0].addEventListener('mouseenter', addTooltip);
+            element[0].addEventListener('mouseleave', removeTooltip);
+            element[0].addEventListener('mousemove', repositionTooltip);
+
+            scope.$on('$destroy', function() {
+                element[0].removeEventListener('mouseenter', addTooltip);
+                element[0].removeEventListener('mouseleave', removeTooltip);
+                element[0].removeEventListener('mousemove', repositionTooltip);
+                removeTooltip();
+            });
+
             function addTooltip(event) {
                 if (attrs.tooltip.trim()) {
                     tooltip = document.createElement('div');
@@ -32,17 +40,6 @@ bugtracker.directive('tooltip', [function() {
                     tooltip = null;
                 }
             }
-
-            element[0].addEventListener('mouseenter', addTooltip);
-            element[0].addEventListener('mousemove', repositionTooltip);
-            element[0].addEventListener('mouseleave', removeTooltip);
-
-            scope.$on('$destroy', function() {
-                element[0].removeEventListener('mouseenter', addTooltip);
-                element[0].removeEventListener('mousemove', repositionTooltip);
-                element[0].removeEventListener('mouseleave', removeTooltip);
-                removeTooltip();
-            });
         }
     }
 
