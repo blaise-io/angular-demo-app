@@ -80,6 +80,8 @@ label {
 
 [ng-messages] {
     font-size: 0.8em;
+    color: tomato;
+    font-weight: normal;
 }
 
 table {
@@ -95,7 +97,7 @@ table input {
 }
 
 .ng-touched.ng-invalid {
-    border-color: rgba(240, 60, 0, 0.5);
+    border-color: tomato;
     box-shadow: none;
 }
 
@@ -158,4 +160,36 @@ pre {
     transform: scale(1.12) translateY(0.2px);
     transform-origin: center top;
     border-top-color: rgba(0, 0, 0, 0.6);
+}
+
+.loading {
+    -webkit-animation: spin 0.3s infinite;
+    -moz-animation: spin 0.3s infinite;
+    animation: spin 0.3s infinite;
+    transform-origin: center center;
+    display: inline-block;
+    margin: 100px auto;
+    line-height: 40px;
+    text-align: center;
+    font-size: 40px;
+    width: 520px;
+}
+
+@-moz-keyframes spin {
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
 }
