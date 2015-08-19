@@ -4,6 +4,25 @@
     box-sizing: content-box;
 }
 
+.menu {
+    background: #ddd;
+    margin: 0 0 1em;
+    padding: 2px 0 0;
+    list-style: none;
+}
+
+.menu li {
+    display: inline-block;
+    margin: 2px 10px;
+}
+
+
+ng-view {
+    display: block;
+    width: 500px;
+    margin: 50px auto 0;
+}
+
 body, input, textarea, button, select {
     font: 14px/24px sans-serif;
 }
@@ -12,27 +31,40 @@ body {
     background: #eee;
 }
 
-button, input, select, textarea {
-    width: 200px;
+input, select, textarea {
+    width: 100%;
     background: #fff;
     border: 1px solid #aaa;
     border-radius: 3px;
     padding: 4px 10px;
+    display: block;
 }
 
 button {
+    cursor: pointer;
     background: royalblue;
     border: 1px solid rgba(0, 0, 0, .2);
     border-radius: 3px;
     color: white;
     margin: 0 10px;
-    padding: 4px 20px;
-    width: auto;
+    padding: 2px 10px 1px;
+}
+button[disabled] {
+    background: #ddd;
+    color: #aaa;
+    pointer-events: none;
+}
+button:hover {
+    background: darkblue;
 }
 
 a {
+    cursor: pointer;
     text-decoration: none;
     color: royalblue;
+}
+a:hover {
+    color: darkblue;
 }
 
 label {
@@ -43,12 +75,42 @@ label {
     color: red;
 }
 
-li {
-    width: 20em;
-    margin: 10px 0;
+table {
+    border-collapse: collapse;
+    white-space: nowrap;
+    width: 100%;
 }
 
-li a {
-    float: right;
-    margin-left: 10px;
+table input {
+    width: 2.2em;
+    text-align: left;
+    padding: 0 0 0 6px;
+}
+
+.ng-touched.ng-invalid {
+    border-color: red;
+    box-shadow: none;
+}
+
+td, th {
+    border-top: 1px solid #ccc;
+    padding: 3px 30px 3px 0;
+    white-space: nowrap;
+}
+
+td:first-child {
+    width: 50%;
+}
+
+
+th {
+    text-align: left;
+    border: none;
+}
+
+pre {
+    background: #ddd;
+    margin-top: 40px;
+    padding: 4px 10px;
+    font: normal 12px/16px concsolas, monaco, monospace;
 }

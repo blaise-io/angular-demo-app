@@ -1,11 +1,10 @@
 <form name="taskForm"
       novalidate
-      ng-if="persons.$resolved"
-      ng-submit="save(taskForm)">
+      ng-submit="save()">
 
     <p>
         <label>
-            Title: <br>
+            Title
             <input required
                    type="text"
                    name="title"
@@ -18,8 +17,10 @@
 
     <p>
         <label>
-            Description: <br>
+            Description
             <textarea required
+                      cols="40"
+                      rows="3"
                       name="description"
                       ng-model="task.description"></textarea>
         </label>
@@ -30,11 +31,29 @@
 
     <p>
         <label>
-            Assignee: <br>
+            Story points
+            <input required
+                   type="number"
+                   name="storypoints"
+                   min="0"
+                   pattern="^\d+$"
+                   ng-model="task.storypoints">
+        </label>
+        <span ng-messages="taskForm.storypoints.$error">
+            <span ng-message="required">This field is required</span>
+            <span ng-message="number">Please enter a number</span>
+            <span ng-message="min">Please enter a positive number</span>
+            <span ng-message="pattern">Please enter digits only</span>
+        </span>
+    </p>
+
+    <p ng-if="persons.$resolved">
+        <label>
+            Assignee
             <select required
                     name="assignee"
                     ng-model="task.assignee"
-                    ng-options="person.id as person.name for person in persons"> </select>
+                    ng-options="person as person.name for person in persons track by person.id"> </select>
         </label>
         <span ng-messages="taskForm.assignee.$error">
             <span ng-message="required">This field is required</span>
@@ -43,7 +62,9 @@
 
     <p>
         <a ng-href="/">Cancel</a>
-        <button type="submit">Submit</button>
+        <button type="submit" ng-disabled="taskForm.$invalid">Save</button>
     </p>
 
 </form>
+
+<pre>$scope.task = {{task|json}}</pre>

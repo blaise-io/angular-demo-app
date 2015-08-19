@@ -1,64 +1,56 @@
 bugtracker.controller('ListCtrl', [
-    '$scope', 'tasks',
-    function($scope, tasks) {
-        $scope.tasks = tasks;
+    '$scope', 'tasksProvider',
+    function($scope, tasksProvider) {
+
+        tasksProvider.tasks.$promise.then(function(tasks) {
+            $scope.tasks = tasks;
+        });
+
+        $scope.confirmDelete = function(task) {
+            if (confirm('Are you sure you want to delete "' + task.title + '"?')) {
+                tasksProvider.deleteTask(task);
+            }
+        };
+
     }
 ]);
-
 
 
 bugtracker.controller('CreateCtrl', [
-    '$scope', '$location', 'tasks', 'personResource',
-    function($scope, $location, tasks, personResource) {
+    '$scope', '$location', 'tasksProvider', 'personResource',
+    function($scope, $location, tasksProvider, personResource) {
 
-        $scope.task = {
-            id: new Date().getTime()
-        };
+        $scope.task = new tasksProvider.Task();
 
         $scope.persons = personResource.query();
 
-        $scope.save = function(taskForm) {
-            if (taskForm.$invalid) {
-                alert('The form is not valid!');
-            } else {
-                window.alert('Created!');
-                tasks.push($scope.task);
-                $location.path('/');
-            }
+        $scope.save = function() {
+            tasksProvider.saveTask($scope.task);
+            $location.path('/');
         }
+
     }
 ]);
 
 
-
 bugtracker.controller('UpdateCtrl', [
-    '$scope', '$location', '$routeParams', 'tasks', 'personResource',
-    function($scope, $location, $routeParams, tasks, personResource) {
+    '$scope', '$location', '$routeParams', 'tasksProvider', 'personResource',
+    function($scope, $location, $routeParams, tasksProvider, personResource) {
 
-        var originalTask;
+        tasksProvider.tasks.$promise.then(function() {
 
-        angular.forEach(tasks, function(task) {
-            if (task.id === Number($routeParams.id)) {
-                originalTask = task;
-                $scope.task = angular.copy(task);
-            }
+            $scope.task = angular.copy(
+                tasksProvider.getTask($routeParams.id)
+            );
+
         });
-
-        if (!$scope.task) {
-            window.alert('Not found!');
-            $location.path('/');
-        }
 
         $scope.persons = personResource.query();
 
-        $scope.save = function(taskForm) {
-            if (taskForm.$invalid) {
-                alert('The form is not valid!');
-            } else {
-                angular.extend(originalTask, $scope.task);
-                window.alert('Saved!');
-                $location.path('/');
-            }
+        $scope.save = function() {
+            tasksProvider.saveTask($scope.task);
+            $location.path('/');
         }
+
     }
 ]);
