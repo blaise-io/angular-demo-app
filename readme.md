@@ -12,6 +12,9 @@ This is an example app that demos how to do:
  - Filters
  - Form validation
 
+For a guide, visit https://docs.angularjs.org/guide.
+
+For documentation, visit https://docs.angularjs.org.
 
 ## Running
 
