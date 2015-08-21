@@ -1,11 +1,20 @@
+<!-- Define a form with a form name
+     Define what should happen when the form is submitted -->
 <form name="taskForm"
       novalidate
-      ng-submit="save()">
+      ng-submit="saveTaskForm()">
 
+    <!-- Define a form field -->
     <p>
         <label>
             Title
+            <!-- Text input with validation rules (required, maxlength)
+                 and ng-model: two-way binding, populate the text in the input
+                 when the model changes, update the model when a user changes the
+                 value of the input. -->
             <input required
+                   maxlength="32"
+                   autofocus
                    type="text"
                    name="title"
                    ng-model="task.title">
@@ -43,6 +52,12 @@
             <span ng-message="max">Please enter a number below or equal to 21</span>
             <span ng-message="pattern">Please enter digits only</span>
         </span>
+
+        <pre ng-click="debug2=true" ng-hide="debug2">taskForm = {} // Click me to expand/collapse</pre>
+        <pre ng-click="debug2=false" ng-show="debug2">taskForm = {{taskForm|json}}</pre>
+
+        <pre ng-click="debug1=true" ng-hide="debug1">taskForm.storypoints = {} // Click me to expand/collapse</pre>
+        <pre ng-click="debug1=false" ng-show="debug1">taskForm.storypoints = {{taskForm.storypoints|json}}</pre>
     </p>
 
     <p ng-if="persons.$resolved">
@@ -65,4 +80,5 @@
 
 </form>
 
+<br><br>
 <pre>$scope.task = {{task|json}}</pre>

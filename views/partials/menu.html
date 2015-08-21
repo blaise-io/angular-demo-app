@@ -1,0 +1,14 @@
+<ul class="menu">
+    <li ng-pluralize
+        count="tasks.length"
+        when="{'0': 'No tasks!', '1': '{} task', other: '{} tasks'}">
+    </li>
+    <li ng-show="tasks.length"
+        ng-pluralize
+        count="(tasks|totalStoryPoints)"
+        when="{'0': 'No story points!', '1': '{} story point', other: '{} story points'}">
+    </li>
+    <li>
+        <a ng-href="/create">+ Create a new task</a>
+    </li>
+</ul>

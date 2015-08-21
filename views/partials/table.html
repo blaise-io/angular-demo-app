@@ -8,16 +8,23 @@
         <th></th>
     </tr>
 
+    <!-- Create a new <tr> for each task -->
     <tr ng-repeat="task in tasks">
         <td>
+            <!-- Displays the task ID -->
             {{::task.id}}
         </td>
         <td>
+            <!-- Dynamic href parameter,
+                 Dynamic style using a filter,
+                 Tooltip with a dynamic value -->
             <a ng-href="/update/{{::task.id}}"
                ng-style="task.storypoints|taskSizeStyle"
                tooltip="{{::task.description}}">{{::task.title}}</a>
         </td>
-        <td>
+        <!-- Inline editing of story points with many validation rules,
+             and save the value when it changes. -->
+        <td ng-form="storypointsForm">
             <input required
                    placeholder="0"
                    type="number"
@@ -32,6 +39,8 @@
             {{::task.assignee.name}}
         </td>
         <td>
+            <!-- When element is clicked, execute OverviewCtrl's `confirmDelete`
+                 task, which is called with the parameter `task` -->
             <a ng-click="confirmDelete(task)"
                tooltip="Delete">❌</a>
         </td>

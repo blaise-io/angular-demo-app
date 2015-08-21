@@ -1,13 +1,16 @@
 bugtracker.config([
 
+    // (Modules) Dependency injection
     '$locationProvider', '$routeProvider',
     function($locationProvider, $routeProvider) {
 
+        // (Routing) Use <base>/url instead of <base>#/url
         $locationProvider.html5Mode(true);
 
+        // (Routing) Define the template and controller for a specific URL
         $routeProvider.when('/', {
             templateUrl: '/views/overview.html',
-            controller: 'ListCtrl'
+            controller: 'OverviewCtrl'
         });
 
         $routeProvider.when('/create', {
@@ -20,8 +23,10 @@ bugtracker.config([
             controller: 'UpdateCtrl'
         });
 
+        // (Routing) Define a template in case there's no routing
+        // rule for the URL
         $routeProvider.otherwise({
-            template: '404'
+            template: '<a href="/">Back to overview</a><div class="spinning">404</div>'
         });
 
     }

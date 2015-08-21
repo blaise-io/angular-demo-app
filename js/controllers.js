@@ -1,14 +1,25 @@
-bugtracker.controller('ListCtrl', [
-    '$scope', 'tasksProvider',
-    function($scope, tasksProvider) {
+bugtracker.controller('OverviewCtrl', [
 
-        tasksProvider.tasks.$promise.then(function(tasks) {
+    // $scope is an object that holds a default set of variables and functions.
+    // You add your own variables and functions to it inside controllers.
+    // It also holds its parent element controller's variables and functions.
+    '$scope', 'taskFactory',
+    function($scope, taskFactory) {
+
+        // Append the tasks to the scope once they're fetched
+        taskFactory.tasksPromise.then(function(tasks) {
             $scope.tasks = tasks;
         });
 
+        // Handle network/server/parsin errors
+        taskFactory.tasksPromise.catch(function(reason) {
+            window.alert('Fetching tasks failed: ' + reason);
+        });
+
+        // Append a function to the scope which can be used in the template
         $scope.confirmDelete = function(task) {
-            if (confirm('Are you sure you want to delete "' + task.title + '"?')) {
-                tasksProvider.deleteTask(task);
+            if (confirm('Do you really want to get rid of "' + task.title + '"?')) {
+                taskFactory.deleteTask(task);
             }
         };
 
@@ -17,15 +28,21 @@ bugtracker.controller('ListCtrl', [
 
 
 bugtracker.controller('CreateCtrl', [
-    '$scope', '$location', 'tasksProvider', 'personResource',
-    function($scope, $location, tasksProvider, personResource) {
+    '$scope', '$location', 'taskFactory', 'personResource',
+    function($scope, $location, taskFactory, personResource) {
 
-        $scope.task = new tasksProvider.Task();
+        // Populate the model.
+        $scope.task = new taskFactory.Task({
+            storypoints: 0
+        });
 
+        // Populate the persons. Omitted: Resource error handling.
         $scope.persons = personResource.query();
 
-        $scope.save = function() {
-            tasksProvider.saveTask($scope.task);
+        // Add the save function to the scope so that it can be called
+        // in the template.
+        $scope.saveTaskForm = function() {
+            taskFactory.saveTask($scope.task);
             $location.path('/');
         }
 
@@ -34,21 +51,32 @@ bugtracker.controller('CreateCtrl', [
 
 
 bugtracker.controller('UpdateCtrl', [
-    '$scope', '$location', '$routeParams', 'tasksProvider', 'personResource',
-    function($scope, $location, $routeParams, tasksProvider, personResource) {
+    '$scope', '$location', '$routeParams', 'taskFactory', 'personResource',
+    function($scope, $location, $routeParams, taskFactory, personResource) {
 
-        tasksProvider.tasks.$promise.then(function() {
+        // Get a promise for fetching a task
+        var taskPromise = taskFactory.getTask($routeParams.id);
 
-            $scope.task = angular.copy(
-                tasksProvider.getTask($routeParams.id)
-            );
-
+        // Handle wHen the promise is resolved
+        taskPromise.then(function(task) {
+            // Create a working copy. We don't want to update the original task
+            // until the form is submitted.
+            $scope.task = angular.copy(task);
         });
 
+        // OH SHIT OH FWORD
+        taskPromise.catch(function(reason) {
+            window.alert('Fetching tasks failed: ' + reason);
+            $location.path('/');
+        });
+
+        // Populate the persons. Omitted: Resource error handling.
         $scope.persons = personResource.query();
 
-        $scope.save = function() {
-            tasksProvider.saveTask($scope.task);
+        // Add the save function to the scope so that it can be called
+        // in the template.
+        $scope.saveTaskForm = function() {
+            taskFactory.saveTask($scope.task);
             $location.path('/');
         }
 

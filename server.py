@@ -1,6 +1,7 @@
 #!/usr/bin/env python2.7
 import BaseHTTPServer
 from SimpleHTTPServer import SimpleHTTPRequestHandler
+from SocketServer import ThreadingMixIn
 
 """
 Run using `python server.py [port]`.
@@ -23,4 +24,8 @@ class MyHandler(SimpleHTTPRequestHandler):
         else:
             SimpleHTTPRequestHandler.send_error(self, code, message)
 
-BaseHTTPServer.test(MyHandler, BaseHTTPServer.HTTPServer)
+class MultiThreadedHTTPServer(ThreadingMixIn, BaseHTTPServer.HTTPServer):
+    pass
+
+print('Starting server at 127.0.0.1:8000, use <Ctrl-C> to stop')
+MultiThreadedHTTPServer(('', 8000), MyHandler).serve_forever()
