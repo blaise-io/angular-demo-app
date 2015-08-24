@@ -11,7 +11,7 @@ bugtracker.controller('OverviewCtrl', [
             $scope.tasks = tasks;
         });
 
-        // Handle network/server/parsin errors
+        // Handle network/server/parsing errors
         taskFactory.tasksPromise.catch(function(reason) {
             window.alert('Fetching tasks failed: ' + reason);
         });
@@ -64,7 +64,7 @@ bugtracker.controller('UpdateCtrl', [
             $scope.task = angular.copy(task);
         });
 
-        // OH SHIT OH FWORD
+        // OH NO OH SHIT OH FWORD
         taskPromise.catch(function(reason) {
             window.alert('Fetching tasks failed: ' + reason);
             $location.path('/');
