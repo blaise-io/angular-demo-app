@@ -18,7 +18,7 @@
             <!-- Dynamic href parameter,
                  Dynamic style using a filter,
                  Tooltip with a dynamic value -->
-            <a ng-href="/update/{{::task.id}}"
+            <a ng-href="./update/{{::task.id}}"
                ng-style="task.storypoints|taskSizeStyle"
                tooltip="{{::task.description}}">{{::task.title}}</a>
         </td>

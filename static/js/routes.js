@@ -9,17 +9,17 @@ bugtracker.config([
 
         // (Routing) Define the template and controller for a specific URL
         $routeProvider.when('/', {
-            templateUrl: '/views/overview.html',
+            templateUrl: '/static/views/overview.html',
             controller: 'OverviewCtrl'
         });
 
         $routeProvider.when('/create', {
-            templateUrl: '/views/create.html',
+            templateUrl: '/static/views/create.html',
             controller: 'CreateCtrl'
         });
 
         $routeProvider.when('/update/:id', {
-            templateUrl: '/views/update.html',
+            templateUrl: '/static/views/update.html',
             controller: 'UpdateCtrl'
         });
 

@@ -1,7 +1,5 @@
 bugtracker.factory('personResource', ['$resource', function($resource) {
-
-    return $resource('/endpoints/persons.json');
-
+    return $resource('/api/persons');
 }]);
 
 
@@ -12,15 +10,7 @@ bugtracker.factory('taskFactory', [
         // Define a resource with a url, parameter defaults and actions.
         // Actions can be called on the Task object.
         // actions can also be called on a task instance using the '$' prefix.
-        var Task = $resource('/backend/not/functional/tasks/:id', {id: '@id'}, {
-            query: {
-                url: '/endpoints/tasks.json',
-                isArray: true
-            },
-            create: {
-                method: 'PUT'
-            }
-        });
+        var Task = $resource('/api/tasks/:id', {id: '@id'});
 
         // Fetch tasks when a taskFactory is initialized.
         var tasks = Task.query();
@@ -58,8 +48,8 @@ bugtracker.factory('taskFactory', [
                 }
             });
             // Fetching the list of tasks failed
-            tasks.$promise.catch = function(reason) {
-                deferred.reject('Fetching tasks failed: ' + reason);
+            tasks.$promise.catch = function() {
+                deferred.reject('Fetching tasks failed');
             };
             // Return the promise for a deferred object
             return deferred.promise;
@@ -69,36 +59,25 @@ bugtracker.factory('taskFactory', [
 
             // Task has an ID, so assume we're updating an existing task.
             if (task.id) {
-                // Get existing task
-                var originalTask = getTaskSync(task.id);
                 // Overwrite existing task with working copy,
                 // while maintaining references.
-                angular.extend(originalTask, task);
-                task.$save(); // Not working because no real server/DB
+                task.$save().then(function(task) {
+                    angular.extend(getTaskSync(task.id), task);
+                })
             }
 
-            // Task does not have an ID, so assume we're creating a new task.
+            // Task does not have an ID, so this will create a new task.
             else {
-                task.$create(); // Not working because no real server/DB
-                task.id = getAutoIncrement(); // Normally the server would do this
-                tasks.push(task);
+                task.$save().then(function(task) {
+                    tasks.push(task);
+                });
             }
         }
 
         function deleteTask(task) {
             var index = tasks.indexOf(task);
             tasks.splice(index, 1);
-            task.$delete(); // Not working because no real server/DB
-        }
-
-        function getAutoIncrement() {
-            var id = 1;
-            angular.forEach(tasks, function(task) {
-                if (task.id >= id) {
-                    id = task.id + 1;
-                }
-            });
-            return id;
+            task.$delete();
         }
 
         return {

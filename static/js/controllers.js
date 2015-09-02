@@ -12,8 +12,8 @@ bugtracker.controller('OverviewCtrl', [
         });
 
         // Handle network/server/parsing errors
-        taskFactory.tasksPromise.catch(function(reason) {
-            window.alert('Fetching tasks failed: ' + reason);
+        taskFactory.tasksPromise.catch(function() {
+            window.alert('Fetching tasks failed');
         });
 
         // Append a function to the scope which can be used in the template
@@ -65,8 +65,8 @@ bugtracker.controller('UpdateCtrl', [
         });
 
         // OH NO OH SHIT OH FWORD
-        taskPromise.catch(function(reason) {
-            window.alert('Fetching tasks failed: ' + reason);
+        taskPromise.catch(function() {
+            window.alert('Fetching tasks failed');
             $location.path('/');
         });
 

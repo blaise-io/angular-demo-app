@@ -16,10 +16,25 @@ For a guide, visit https://docs.angularjs.org/guide.
 
 For documentation, visit https://docs.angularjs.org.
 
+
 ## Running
 
- - Make sure Python 2.7 is installed on your system
- - Clone this repository to your local dev
- - Run `./server.py`
- - Open `http://127.0.0.1:8000` in a browser
+ 1. Create a virtual environment with Python 2.7
+ 2. Clone this repository in that virtual environment
+ 3. Create a new database: `python create_db.py`. This will create a 
+   <uuid>.db file in the `databases` directory. Use this uuid in step 6.
+ 4. Install project requirements: `pip install -r requirements.txt`
+ 5. Start the server: `python server.py`
+ 6. Try out the server: `http://127.0.0.1:5000/<uuid>`
+
+If you want to store the databases somewhere else, set the environment 
+variable `ANGULAR_DEMO_DB_FILES_DIR`.
+
+
+## Getting a new tester up and running
+
+ 1. Run `python create_db.py`
+ 2. Send `http://<public_host_name>/<uuid>` to the tester
  
+If the database somehow gets corrupt, you can overwrite it with the default 
+data in `create_db.sql` using `python create_db.py <uuid>`.

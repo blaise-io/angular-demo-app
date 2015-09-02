@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- (Modules) ng-app indicates in which section in our document the app is active -->
+<html ng-app="bugtracker">
+<head>
+    <!-- (Routing) Angular needs to know the base location for our app -->
+    <base href="/{{token}}/" />
+
+    <meta charset="utf-8" />
+    <title>Angular demo</title>
+    <link rel="icon" href="/static/favicon.png" />
+    <link rel="stylesheet" href="/static/index.css" />
+</head>
+<body>
+
+    <!-- (Routing) ng-view will be populated with the templates specified in routes.js -->
+    <ng-view>
+        <div class="spinning">LOADING</div>
+    </ng-view>
+
+    <!-- (Modules) Load AngularJS and Angular modules that our app uses -->
+    <script src="/static/lib/angular.js"></script>
+    <script src="/static/lib/angular-route.js"></script>
+    <script src="/static/lib/angular-resource.js"></script>
+    <script src="/static/lib/angular-messages.js"></script>
+
+    <!-- (Modules) Load our app code -->
+    <script src="/static/js/module.js"></script>
+    <script src="/static/js/run.js"></script>
+    <script src="/static/js/routes.js"></script>
+    <script src="/static/js/controllers.js"></script>
+    <script src="/static/js/factories.js"></script>
+    <script src="/static/js/filters.js"></script>
+    <script src="/static/js/directives.js"></script>
+    <script>bugtracker.constant('TOKEN', '{{token}}');</script>
+
+</body>
+</html>
