@@ -36,5 +36,9 @@ variable `ANGULAR_DEMO_DB_FILES_DIR`.
  1. Run `python create_db.py`
  2. Send `http://<public_host_name>/<uuid>` to the tester
  
-If the database somehow gets corrupt, you can overwrite it with the default 
-data in `create_db.sql` using `python create_db.py <uuid>`.
+You can have multiple databases in one environment, so that multiple testers can
+each have their own database. The names of other tester’s databases should be 
+considered a secret, as a tester could mess with another tester’s data.
+
+If a database needs to be reset for some reason, you can overwrite the database 
+with the default data from `create_db.sql` using `python create_db.py <uuid>`.
