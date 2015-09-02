@@ -66,13 +66,16 @@ def update_task(cursor, id, data):
 
 
 def restructure_person(cursor, row):
+    # Serial data to dict with column names.
     column_names = [d[0] for d in cursor.description]
     return dict(zip(column_names, row))
 
 
 def restructure_task(cursor, row):
+    # Serial data to dict with column names.
     column_names = [d[0] for d in cursor.description]
     row = dict(zip(column_names, row))
+    # Nest assignee data in the "assignee" property.
     row['assignee'] = {
         'id': row['assignee_id'],
         'name': row['assignee_name'],
@@ -84,8 +87,10 @@ def restructure_task(cursor, row):
 
 def task_data_to_values(data):
     return [
-        data.get('title'),
-        data.get('description'),
-        data.get('assignee').get('id'),
-        data.get('storypoints')
+        # Restrict data to prevent users wasting disk space.
+        # Sqlite does not allow setting restrictions.
+        str(data.get('title'))[:32],
+        str(data.get('description'))[:256],
+        int(data.get('assignee').get('id')),
+        int(data.get('storypoints'))
     ]
